@@ -1,7 +1,5 @@
-import type { HttpContext } from '@adonisjs/core/http';
-
 export default class UsersController {
-    async index(ctx: HttpContext) {
+    async index() {
         return [
             {
                 id: 1,
