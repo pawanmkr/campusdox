@@ -1,0 +1,142 @@
+Certainly! Here is a detailed prompt that you can use to interact with an LLM to build the described pages:
+
+---
+
+**Prompt:**
+
+I need to create a web application with the following specifications using React, TypeScript, TailwindCSS(project setup is done already). The backend API is provided by an AdonisJS application, and the relevant endpoints and data formats are described below. The application should have two main pages: a search page and a search results page similar to Google and Google search results.
+
+### Backend API Details
+
+1. **GET /documents**: Lists all available documents.
+    - **Response Format:**
+      ```json
+      [
+        {
+          "id": 1,
+          "title": "triduana causa abeo",
+          "description": "Xiphias cotidie vitiosus. Verumtamen delectatio succedo tandem suffragium cernuus vinum caterva. Suffoco bis excepturi aro.\nVerbera dolor virga calcar aeger attonbitus iusto. Tondeo utor supra amitto arto bos despecto titulus. Colo ver amplexus video cernuus.\nAmita adfectus suffoco concido. Vehemens dens ulciscor bellum summa patrocinor peccatus coruscus facere. Denuncio acidus turba adaugeo spectaculum fugit tamisium videlicet corona acquiro.",
+          "downloads": 9049,
+          "views": 211444,
+          "userId": 4,
+          "createdAt": "2024-07-13T18:24:00.754+00:00",
+          "updatedAt": "2024-07-13T18:24:00.754+00:00",
+          "user": {
+            "id": 4,
+            "avatar": "https://trifling-pirate.com/",
+            "username": "Astrid_Marks",
+            "fullName": "Ronnie Glover",
+            "email": "Gino47@gmail.com",
+            "isFederatedUser": true,
+            "createdAt": "2024-07-13T18:23:53.895+00:00",
+            "updatedAt": "2024-07-13T18:23:53.895+00:00"
+          },
+          "files": [
+            {
+              "id": 129,
+              "originalName": "healthily_diplomacy_pfft.png",
+              "bucket": "/home/user",
+              "key": "propagate_proper.xlw",
+              "downloads": 5919,
+              "views": 355283,
+              "documentId": 1,
+              "createdAt": "2024-07-13T18:25:10.693+00:00",
+              "updatedAt": "2024-07-13T18:25:10.693+00:00"
+            },
+            ...
+          ]
+        },
+        ...
+      ]
+      ```
+
+2. **POST /documents**: Creates a new document.
+    - **Request Format:**
+      ```json
+      {
+        "title": "Document Title",
+        "description": "Document Description",
+        "files": [file],
+        "userId": 1
+      }
+      ```
+
+3. **GET /documents/search**: Searches for documents based on a query.
+    - **Request Query Parameters:**
+      ```json
+      {
+        "query": "search term"
+      }
+      ```
+    - **Response Format:**
+      ```json
+      [
+        {
+          "id": 2,
+          "title": "cursus beatus strenuus",
+          "description": "Aer solvo terreo. Magnam deleniti nostrum vallum vapulus deleo. Decipio circumvenio attonbitus aut cubitum comminor stipes debilito vociferor.\nBalbus timidus defetiscor. Uberrime comburo neque vomica sodalitas aeneus ante. Laboriosam calamitas curatio labore sit calcar.\nCredo delego tibi minus vereor accusator alveus totam summa decet. Ventus commodo terror crebro utpote debeo. Arguo nisi abduco excepturi excepturi absque utrimque cotidie nostrum.",
+          "downloads": 3271,
+          "views": 511259,
+          "userId": 6,
+          "createdAt": "2024-07-13T18:24:01.054+00:00",
+          "updatedAt": "2024-07-13T18:24:01.054+00:00"
+        },
+        ...
+      ]
+      ```
+
+### Frontend Requirements
+
+1. **Search Page:**
+    - Should have a search bar similar to Google’s homepage.
+    - A button to explore all documents without searching.
+
+2. **Search Results Page:**
+    - Should display search results based on the query.
+    - If no query is provided, display all available documents.
+    - Each document should have a download button (no detailed card view is needed).
+    - Pagination should be implemented if there are many documents.
+
+3. **Create Document Page/Popup:**
+    - Form fields: title, description, file upload, and userId.
+    - Submit button to create a document using the POST /documents API.
+
+### Steps to Implement
+
+1. **Initialize the Project:**
+    - Use Vite to create a new React + TypeScript project.
+    - Integrate TailwindCSS for styling.
+
+2. **Setup API Integration:**
+    - Use Axios or Fetch API to interact with the backend APIs.
+
+3. **Build the Search Page:**
+    - Create a search bar component.
+    - Create a button to fetch and display all documents.
+
+4. **Build the Search Results Page:**
+    - Display the documents returned from the search query.
+    - If no query, display all documents.
+    - Implement pagination for the document list.
+    - Add download buttons for each document.
+
+5. **Build the Create Document Page/Popup:**
+    - Create a form to accept title, description, file uploads, and userId.
+    - On form submission, POST the data to the backend to create a new document.
+
+6. **Style the Application:**
+    - Use TailwindCSS to style the search page, search results page, and create document popup.
+
+### Example Component Structure
+
+- `App.tsx`: Main entry point.
+- `components/SearchBar.tsx`: Search bar component.
+- `components/DocumentList.tsx`: Component to list documents.
+- `components/DocumentItem.tsx`: Component to display individual document items.
+- `pages/SearchPage.tsx`: Page for the search functionality.
+- `pages/SearchResultsPage.tsx`: Page for displaying search results.
+- `pages/CreateDocument.tsx`: Page or popup for creating documents.
+
+---
+
+By following this prompt, the LLM should be able to generate the required code to build the application according to your specifications.

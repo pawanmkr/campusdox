@@ -6,8 +6,9 @@ import { Exception } from '@adonisjs/core/exceptions';
 import type { HttpContext } from '@adonisjs/core/http';
 
 export default class DocumentsController {
-    async index({}: HttpContext) {
-        return Document.query().preload('user').preload('files');
+    async index({ request }: HttpContext) {
+        const { page, limit } = request.qs();
+        return Document.query().preload('user').preload('files').offset(page).limit(limit);
     }
 
     async store({ request, response }: HttpContext) {
@@ -59,12 +60,15 @@ export default class DocumentsController {
     }
 
     async search({ request, response }: HttpContext) {
-        const q = request.qs().query;
+        const { query, page, limit } = request.qs();
 
         const documents = await Document.query()
-            .whereILike('title', `%${q}%`)
-            .orWhereILike('description', `%${q}%`)
-            .limit(5);
+            .whereILike('title', `%${query}%`)
+            .orWhereILike('description', `%${query}%`)
+            .preload('user')
+            .preload('files')
+            .offset(page)
+            .limit(limit);
 
         response.json(documents);
     }
