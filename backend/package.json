@@ -45,7 +45,6 @@
         "@types/node": "^20.14.9",
         "eslint": "^8.57.0",
         "hot-hook": "^0.2.6",
-        "pino-pretty": "^11.2.1",
         "prettier": "^3.3.2",
         "ts-node": "^10.9.2",
         "typescript": "~5.4"
@@ -61,6 +60,7 @@
         "luxon": "^3.4.4",
         "mime": "^4.0.4",
         "nanoid": "^5.0.7",
+        "pino-pretty": "^11.2.1",
         "pg": "^8.12.0",
         "reflect-metadata": "^0.2.2"
     },
