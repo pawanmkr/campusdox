@@ -1,4 +1,3 @@
-import env from '#start/env';
 import { defineConfig } from '@adonisjs/cors';
 
 /**
@@ -9,7 +8,7 @@ import { defineConfig } from '@adonisjs/cors';
  */
 const corsConfig = defineConfig({
     enabled: true,
-    origin: [env.get('FRONTEND_URL')],
+    origin: '*',
     methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'],
     headers: true,
     exposeHeaders: [],
