@@ -65,12 +65,12 @@ const SearchResultsPage: React.FC = () => {
                 ) : (
                     <div className='flex space-x-4 items-center'>
                         <Logo />
-                        <a
+                        <p
                             className='text-gray-400 cursor-pointer text-lg -mb-1 underline hover:text-blue-800'
-                            href='/document/create'
+                            onClick={() => navigate('/document/create')}
                         >
                             upload
-                        </a>
+                        </p>
                     </div>
                 )}
                 <SearchBar onSearch={handleSearch} />
