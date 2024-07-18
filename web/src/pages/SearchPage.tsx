@@ -11,6 +11,12 @@ const SearchPage: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
+        const ltoken = localStorage.getItem('token');
+        if (ltoken) {
+            setLoggedIn(true);
+            return;
+        }
+
         const token = new URLSearchParams(location.search).get('token');
         if (token) {
             localStorage.setItem('token', token);
