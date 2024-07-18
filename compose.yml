@@ -6,4 +6,4 @@ services:
             context: ./backend
             dockerfile: Dockerfile
         ports:
-            - "80:3333"
+            - "3333:3333"
