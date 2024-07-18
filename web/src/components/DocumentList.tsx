@@ -2,28 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
-
-interface Document {
-    id: number;
-    title: string;
-    description: string;
-    downloads: number;
-    views: number;
-    userId: number;
-    createdAt: string;
-    updatedAt: string;
-    user: {
-        id: number;
-        username: string;
-        fullName: string;
-    };
-    files: Array<{
-        id: number;
-        originalName: string;
-        downloads: number;
-        views: number;
-    }>;
-}
+import { Document } from './DocumentDetail';
+// import SignInModal from './SignInModal';
 
 interface DocumentListProps {
     documents: Document[];
@@ -33,24 +13,42 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
     const [downloadingId, setDownloadingId] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [hoveredId, setHoveredId] = useState<number | null>(null);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleDownload = async (documentId: number) => {
+        // const userIsSignedIn = false; // Replace with actual sign-in check
+
+        // if (!userIsSignedIn) {
+        //     setIsModalOpen(true);
+        //     return;
+        // }
+
         setDownloadingId(documentId);
         setError(null);
 
         try {
-            const response = await axios.get(`/documents/${documentId}/download`, {
-                responseType: 'blob',
-            });
+            const res = await axios.patch(`${import.meta.env.VITE_API_BASE_URL}/documents/${documentId}?downloaded=true`);
+            if (res.status === 200) {
+                const document = documents.filter(d => d.id === documentId);
+                document[0].downloads = res.data.downloads;
+            }
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `document-${documentId}.zip`);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+            const selected = documents.filter(doc => doc.id === documentId);
+
+            for (const file of selected[0].files) {
+                const res = await axios.get(`${import.meta.env.VITE_R2_PUBLIC_URL}/${file.key}`, {
+                    responseType: 'blob'
+                });
+
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.setAttribute('download', file.originalName);
+                link.href = url;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            }
         } catch (err) {
             setError(`Failed to download document ${documentId}. Please try again.`);
         } finally {
@@ -114,7 +112,7 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
                                             <span className="mr-2">Downloading...</span>
                                         </>
                                     ) : (
-                                        'Download'
+                                        `Download ${doc.files.length} ${doc.files.length > 1 ? 'files' : 'file'}`
                                     )}
                                 </button>
                             </div>
@@ -122,6 +120,7 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
                     </div>
                 </div>
             ))}
+            {/* {isModalOpen && <SignInModal goBack={() => setIsModalOpen(false)} />} */}
         </div>
     );
 };

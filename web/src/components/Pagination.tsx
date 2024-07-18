@@ -13,7 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     }
 
     return (
-        <nav className="flex justify-center my-20">
+        <nav className="flex justify-center my-10">
             <ul className="inline-flex items-center -space-x-px">
                 <li>
                     <button

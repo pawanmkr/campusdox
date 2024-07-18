@@ -5,28 +5,8 @@ import DocumentList from '../components/DocumentList';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination'
 import LoadingSpinner from '../components/LoadingSpinner';
-
-interface Document {
-    id: number;
-    title: string;
-    description: string;
-    downloads: number;
-    views: number;
-    userId: number;
-    createdAt: string;
-    updatedAt: string;
-    user: {
-        id: number;
-        username: string;
-        fullName: string;
-    };
-    files: Array<{
-        id: number;
-        originalName: string;
-        downloads: number;
-        views: number;
-    }>;
-}
+import Logo from '../components/Logo';
+import { Document } from '../components/DocumentDetail';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -50,6 +30,7 @@ const SearchResultsPage: React.FC = () => {
                     ? `/documents/search?query=${encodeURIComponent(searchQuery)}&page=${page}&limit=${ITEMS_PER_PAGE}`
                     : `/documents?page=${page}&limit=${ITEMS_PER_PAGE}`;
                 const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}${endpoint}`);
+
                 setDocuments(response.data);
                 setTotalPages(10);
                 setCurrentPage(page);
@@ -82,12 +63,15 @@ const SearchResultsPage: React.FC = () => {
                         <p className='text-xl'>{searchQuery}</p>
                     </div>
                 ) : (
-                    <h1
-                        className="text-3xl font-bold text-red-600 cursor-pointer"
-                        onClick={() => navigate('/')}
-                    >
-                        Dox<span className='text-black'>college</span>
-                    </h1>
+                    <div className='flex space-x-4 items-center'>
+                        <Logo />
+                        <a
+                            className='text-gray-400 cursor-pointer text-lg -mb-1 underline hover:text-blue-800'
+                            href='/document/create'
+                        >
+                            upload
+                        </a>
+                    </div>
                 )}
                 <SearchBar onSearch={handleSearch} />
             </div>

@@ -45,4 +45,20 @@ export default await Env.create(new URL('../', import.meta.url), {
     CLOUDFLARE_ACCOUNT_ID: Env.schema.string(),
     CLOUDFLARE_ACCESS_KEY_ID: Env.schema.string(),
     CLOUDFLARE_SECRET_ACCESS_KEY: Env.schema.string(),
+
+    /*
+    |----------------------------------------------------------
+    | Variables for configuring Google OAuth
+    |----------------------------------------------------------
+    */
+    GOOGLE_CLIENT_ID: Env.schema.string(),
+    GOOGLE_CLIENT_SECRET: Env.schema.string(),
+    GOOGLE_REDIRECT_URI: Env.schema.string(),
+
+    /*
+    |----------------------------------------------------------
+    | Variables for frontend
+    |----------------------------------------------------------
+    */
+    FRONTEND_URL: Env.schema.string(),
 });

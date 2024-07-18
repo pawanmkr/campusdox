@@ -22,6 +22,8 @@ export interface Document {
         originalName: string;
         downloads: number;
         views: number;
+        bucket: string;
+        key: string;
     }>;
 }
 
