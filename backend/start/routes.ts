@@ -22,8 +22,8 @@ router
     .group(() => {
         router.get('/', '#controllers/documents_controller.index');
         router.post('/', '#controllers/documents_controller.store');
-        router.get('/:id', '#controllers/documents_controller.show');
         router.get('/search', '#controllers/documents_controller.search');
+        router.get('/:id', '#controllers/documents_controller.show');
         router.put('/:id', '#controllers/documents_controller.update');
         router.delete('/:id', '#controllers/documents_controller.destroy');
         router.patch('/:id', '#controllers/documents_controller.increaseDownloadCount');

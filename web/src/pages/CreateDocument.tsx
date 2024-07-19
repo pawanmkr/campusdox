@@ -86,7 +86,6 @@ const CreateDocument: React.FC = () => {
                                 id="description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                required
                                 className="bg-gray-200 px-4 py-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             />
                         </div>

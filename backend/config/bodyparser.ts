@@ -48,7 +48,22 @@ const bodyParserConfig = defineConfig({
          * and fields
          */
         limit: '100mb',
-        types: ['multipart/form-data'],
+        types: [
+            'multipart/form-data',
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/webp',
+            'image/svg+xml',
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+            'text/plain',
+        ],
     },
 });
 

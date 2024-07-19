@@ -114,7 +114,7 @@ export default class DocumentsController {
             .orWhereILike('description', `%${query}%`)
             .preload('user')
             .preload('files')
-            .offset(page)
+            .offset(page - 1)
             .limit(limit);
 
         response.json(documents);
