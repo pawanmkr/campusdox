@@ -6,7 +6,7 @@ import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations';
 
 export default class Document extends BaseModel {
     @column({ isPrimary: true })
-    declare id: number;
+    declare id: string;
 
     @column()
     declare title: string;
@@ -16,9 +16,6 @@ export default class Document extends BaseModel {
 
     @column()
     declare downloads: number;
-
-    @column()
-    declare views: number;
 
     @column()
     declare userId: number;
@@ -38,6 +35,5 @@ export default class Document extends BaseModel {
     @beforeCreate()
     static setDefaultValues(document: Document) {
         if (!document.downloads) document.downloads = 0;
-        if (!document.views) document.views = 0;
     }
 }

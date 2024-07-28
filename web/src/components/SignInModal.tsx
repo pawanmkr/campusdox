@@ -12,8 +12,6 @@ const SignInModal = ({ goBack }: SignInModalProps) => {
                 <h2 className="text-2xl font-semibold mb-4 text-center">Sign In Required</h2>
                 <p className="text-gray-600 mb-8 text-center">
                     Please register yourself before uploading or downloading documents.
-                    <br />
-                    "Sab FREE hai, itna to kar hi skte ho?"
                 </p>
                 <div className="flex justify-center space-x-8 scale-110">
                     <SignInBtn />

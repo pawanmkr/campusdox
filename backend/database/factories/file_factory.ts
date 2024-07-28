@@ -9,8 +9,7 @@ export const FileFactory = factory
             bucket: faker.system.directoryPath(),
             key: faker.system.fileName(),
             downloads: faker.number.int({ min: 0, max: 10_000 }),
-            views: faker.number.int({ min: 0, max: 1_000_000 }),
-            documentId: faker.number.int({ min: 1, max: 100 }),
+            documentId: faker.string.nanoid(10),
         };
     })
     .build();

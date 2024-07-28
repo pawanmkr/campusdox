@@ -7,6 +7,7 @@ import type { HttpContext } from '@adonisjs/core/http';
 import logger from '@adonisjs/core/services/logger';
 import jwt from 'jsonwebtoken';
 import { Payload } from './auth_controller.js';
+import { nanoid } from 'nanoid';
 
 export default class DocumentsController {
     async index({ request }: HttpContext) {
@@ -46,7 +47,7 @@ export default class DocumentsController {
             f.originalName = file.clientName;
             f.bucket = env.get('CLOUDFLARE_BUCKET');
             f.key = file.tmpPath?.split('/').pop() || `${file.clientName}_${file.size}`;
-            f.documentId = doc.id;
+            f.documentId = nanoid(10);
 
             promises.push(f.save());
             // file upload to persistent storage

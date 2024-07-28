@@ -29,16 +29,27 @@ const SearchPage: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col justify-center items-center h-[60vh]'>
-            <div className="flex flex-col justify-center items-center scale-125 space-y-8 w-[800px]">
-                <Logo />
-                <SearchBar onSearch={handleSearch} />
-                <div className='flex space-x-8'>
-                    <ExploreBtn />
-                    {loggedIn ? <LogoutBtn /> : <SignInBtn />}
+        <>
+            <div className='flex flex-col justify-center items-center h-[60vh]'>
+                <div className="flex flex-col justify-center items-center scale-125 space-y-8 w-[800px]">
+                    <Logo />
+                    <br />
+                    <SearchBar onSearch={handleSearch} />
+                    <div className='flex space-x-8'>
+                        <ExploreBtn />
+                        {loggedIn ? <LogoutBtn /> : <SignInBtn />}
+                    </div>
                 </div>
             </div>
-        </div>
+            <div className="text-center text-gray-400">
+                <a
+                    href="mailto:pawanmkr.work@gmail.com"
+                    className="hover:underline">
+                    Contact: pawanmkr.work@gmail.com
+                </a>
+                <p>For reporting bugs, contribution/collaboration or feedback.</p>
+            </div>
+        </>
     );
 };
 

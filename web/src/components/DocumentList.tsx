@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
 import { Document } from './DocumentDetail';
@@ -14,7 +14,7 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
     const [error, setError] = useState<string | null>(null);
     const [hoveredId, setHoveredId] = useState<number | null>(null);
     // const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleDownload = async (documentId: number) => {
         // const userIsSignedIn = false; // Replace with actual sign-in check
@@ -61,7 +61,7 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
     }
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-12 px-4">
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <span className="block sm:inline">{error}</span>
@@ -75,9 +75,9 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
                     onMouseLeave={() => setHoveredId(null)}
                 >
                     <h2
-                        className="text-xl text-red-700 mb-2 truncate hover:underline"
-                        onClick={() => navigate(`/document/${doc.id}`)}
-                        style={{ cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                        className="text-xl text-red-700 mb-2 truncate"
+                        // onClick={() => navigate(`/document/${doc.id}`)}
+                        style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
                     >
                         {doc.title}
                     </h2>
@@ -96,8 +96,8 @@ const DocumentList: React.FC<DocumentListProps> = ({ documents }) => {
                     <div className="flex items-center justify-between text-sm text-gray-500">
                         <div>
                             <span>By: {doc.user.fullName}</span>
-                            <span className='ml-8'>Views: {doc.views}</span>
                             <span className='ml-8'>Downloads: {doc.downloads}</span>
+                            <span className='ml-8'>Date: {new Date(doc.createdAt).toLocaleDateString()}</span>
                         </div>
                         {hoveredId === doc.id && (
                             <div>

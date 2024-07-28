@@ -20,10 +20,7 @@ export default class File extends BaseModel {
     declare downloads: number;
 
     @column()
-    declare views: number;
-
-    @column()
-    declare documentId: number;
+    declare documentId: string;
 
     @belongsTo(() => Document)
     declare document: BelongsTo<typeof Document>;
@@ -37,6 +34,5 @@ export default class File extends BaseModel {
     @beforeCreate()
     static process(files: File) {
         if (!files.downloads) files.downloads = 0;
-        if (!files.views) files.views = 0;
     }
 }

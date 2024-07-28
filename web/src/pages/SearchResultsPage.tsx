@@ -83,11 +83,15 @@ const SearchResultsPage: React.FC = () => {
             ) : (
                 <>
                     <DocumentList documents={documents} />
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                    />
+                    {
+                        documents.length > 20 ? (
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
+                        ) : null
+                    }
                 </>
             )}
             {error && <div className="text-center mt-8 text-red-500">{error}</div>}

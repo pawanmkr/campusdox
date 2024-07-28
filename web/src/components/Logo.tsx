@@ -9,7 +9,7 @@ export default function Logo() {
                 className="text-3xl font-bold cursor-pointer text-black"
                 onClick={() => navigate('/')}
             >
-                campus<span className='text-red-600 '>dox</span>
+                Campus<span className='text-red-600 '>DOX</span>
             </h1>
         </div>
     )
