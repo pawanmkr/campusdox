@@ -6,6 +6,7 @@ import { Exception } from '@adonisjs/core/exceptions';
 import type { HttpContext } from '@adonisjs/core/http';
 import logger from '@adonisjs/core/services/logger';
 import jwt from 'jsonwebtoken';
+import { Payload } from './auth_controller.js';
 
 export default class DocumentsController {
     async index({ request }: HttpContext) {
@@ -24,17 +25,16 @@ export default class DocumentsController {
         const token = request.request.headers.authorization?.replace('Bearer ', '');
         if (!token) return response.unauthorized();
 
-        const payload = jwt.verify(token, env.get('APP_KEY'));
-        console.log(payload);
+        const payload = jwt.verify(token, env.get('APP_KEY')) as Payload;
 
         const { title, description } = request.only(['title', 'description']);
-        logger.info(title, description);
+        logger.debug(title, description);
 
         let doc;
         doc = new Document();
         doc.title = title;
         doc.description = description;
-        doc.userId = 1;
+        doc.userId = payload.id;
         logger.info('saving document');
         doc = await doc.save();
         logger.info(doc);
@@ -43,25 +43,18 @@ export default class DocumentsController {
 
         for (const file of request.files('files')) {
             const f = new File();
-
             f.originalName = file.clientName;
             f.bucket = env.get('CLOUDFLARE_BUCKET');
             f.key = file.tmpPath?.split('/').pop() || `${file.clientName}_${file.size}`;
             f.documentId = doc.id;
 
             promises.push(f.save());
-
             // file upload to persistent storage
             promises.push(await uploadFile(file, f.key, f.bucket));
         }
 
-        logger.info('promises resolving...');
-        const result = await Promise.all(promises);
-        logger.info('promises resolved');
-        logger.info(result);
-
+        await Promise.all(promises);
         doc = await Document.query().where('id', doc.id).preload('files');
-        logger.info('doc loaded again');
 
         return response.status(201).json(doc);
     }

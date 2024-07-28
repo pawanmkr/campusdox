@@ -6,6 +6,12 @@ import { inject } from '@adonisjs/core';
 import { HttpContext } from '@adonisjs/core/http';
 import jwt from 'jsonwebtoken';
 
+export type Payload = {
+    id: number;
+    avatar: string;
+    name: string;
+};
+
 export default class AuthController {
     async index() {
         return { status: 'healthy' };
@@ -28,9 +34,7 @@ export default class AuthController {
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const { id_token, access_token } = await gauth.getTokens(code);
-
         const profile = await gauth.getProfile(id_token as string, access_token as string);
-
         const user = await user_service.signin(profile, session.sessionId);
 
         // session.put('user_id', user.id);
@@ -41,14 +45,12 @@ export default class AuthController {
         //     sameSite: 'strict',
         // });
 
-        const token = jwt.sign(
-            {
-                id: user.id,
-                avatar: user.avatar,
-                name: user.fullName,
-            },
-            env.get('APP_KEY')
-        );
+        const payload: Payload = {
+            id: user.id,
+            avatar: user.avatar,
+            name: user.fullName,
+        };
+        const token = jwt.sign(payload, env.get('APP_KEY'));
 
         response.redirect(`${env.get('FRONTEND_URL')}?token=${token}`);
     }
@@ -61,7 +63,6 @@ export default class AuthController {
         if (!userId) return response.ok({ loggedIn: false });
 
         const res = await Session.findBy('user_id', userId);
-
         if (res) response.ok({ loggedIn: true });
         else response.ok({ loggedIn: false });
     }
